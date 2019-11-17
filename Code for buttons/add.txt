@@ -1,0 +1,21 @@
+With CustomerDatabase(NumOfCustomerRecords) 'Puts values from all textboxes into the record elements
+            .ID = TextBoxID.Text
+            .Name = TextBoxName.Text
+            .Contact = TextBoxContactNo.Text
+            .Address = TextBoxAddress.Text
+        End With
+
+        Dim sep As String = "," ' the symbol to seperator the fields on one line
+        Dim File As StreamWriter
+        File = My.Computer.FileSystem.OpenTextFileWriter(Customerfilename, True)
+        For i As Integer = 0 To NumOfCustomerRecords 'loop through all the records
+            With CustomerDatabase(i)
+                Dim oneline As String = .ID + sep + .Name + sep + .Contact + sep + .Address
+                If TextBoxID.Text = "" Or TextBoxName.Text = "" Or TextBoxContactNo.Text = "" Or TextBoxAddress.Text = "" Then
+                    'Do nothing
+                Else
+                    File.WriteLine(oneline) 'write the line to file
+                End If
+            End With
+        Next
+        File.Close()

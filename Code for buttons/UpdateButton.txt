@@ -1,0 +1,42 @@
+Dim File = My.Computer.FileSystem.OpenTextFileWriter(Customerfilename, True) 'open the file
+        Dim position As Integer = -1
+
+        For i As Integer = 0 To NumOfCustomerRecords - 1'loop through all the records
+            With CustomerDatabase(i)
+                If .ID = TextBoxID.Text Then
+                    position = i
+                End If
+            End With
+        Next
+
+        With CustomerDatabase(position) 'Puts values from all textboxes into the record elements
+            .ID = TextBoxID.Text
+            .Name = TextBoxName.Text
+            .Contact = TextBoxContactNo.Text
+            .Address = TextBoxAddress.Text
+        End With
+        Dim sep As String = ","
+
+        With CustomerDatabase(position)
+            Dim oneline As String = .ID + sep + .Name + sep + .Contact + sep + .Address
+            File.WriteLine(oneline) 'write the line to file
+        End With
+        File.Close()
+
+FileOpen(1, Customerfilename, OpenMode.Input)
+
+        For i As Integer = 0 To Customerfilename.Length - 1
+            Dim line As String = LineInput(1)
+            Dim Item() As String = Split(line, ",")
+            CustomerDatabase(MaxNumOfRecords).ID = Item(0)
+            CustomerDatabase(MaxNumOfRecords).Name = Item(1)
+            CustomerDatabase(MaxNumOfRecords).Contact = Item(2)
+            CustomerDatabase(MaxNumOfRecords).Address = Item(3)
+            If line.Contains(TextBoxName.Text) Then
+                Item(1) = TextBoxName.Text
+                Item(2) = TextBoxContactNo.Text
+                Item(3) = TextBoxAddress.Text
+            End If
+        Next
+        FileClose(1)
+

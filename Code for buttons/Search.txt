@@ -1,0 +1,23 @@
+Public Sub Search(columns_expected As Integer, filename As String)
+        Using SearchReader As New StreamReader(filename)
+            While Not SearchReader.EndOfStream
+                Dim line As String = SearchReader.ReadLine()
+                If line.Contains(TextBoxName.Text) Then
+                    Dim arr1() As String = line.Split(",")
+                    CustomerDataGridView.Rows.Clear()
+                    CustomerDataGridView.Rows.Add("")
+                    If arr1.Length = columns_expected Then
+                        For ix As Integer = 0 To columns_expected - 1
+                            CustomerDataGridView.Rows(CustomerDataGridView.Rows.Count - 1).Cells(ix).Value = arr1(ix)
+                        Next
+                    End If
+                    MessageBox.Show("The Customer Has Been Found!")
+                End If
+            End While
+        End Using
+    End Sub
+
+    Private Sub cmdSearch_Click(sender As Object, e As EventArgs) Handles cmdSearch.Click
+        Dim columns As Integer = 4
+        Search(columns, Customerfilename)
+    End Sub
