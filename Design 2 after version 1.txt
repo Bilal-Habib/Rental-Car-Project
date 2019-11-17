@@ -1,7 +1,0 @@
-Talk about how you put a limit in the number of records
-
-Add Surname Customer Database
-
-Add Vehicle type and  Make to the Vehicle Database
-
-Making the ID automated
